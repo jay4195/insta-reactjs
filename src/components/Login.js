@@ -70,7 +70,7 @@ const Login = ({ signup }) => {
       return toast.error(err.message);
     }
 
-    const user = await client("/auth/me");
+    const user = await client("/auth/me", { body });
     localStorage.setItem("user", JSON.stringify(user.data));
     setUser(user.data);
     toast.success("Login successful");

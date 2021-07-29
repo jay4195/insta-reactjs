@@ -95,6 +95,7 @@ const ProfileForm = () => {
   const username = useInput(user.username);
   const bio = useInput(user.bio);
   const website = useInput(user.website);
+  const email = useInput(user.email);
 
   const handleImageUpload = (e) => {
     if (e.target.files[0]) {
@@ -121,6 +122,7 @@ const ProfileForm = () => {
       bio: bio.value,
       website: website.value,
       avatar: newAvatar || user.avatar,
+      email: email.value,
     };
 
     client("/users", { method: "PUT", body })
