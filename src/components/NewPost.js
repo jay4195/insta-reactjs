@@ -190,6 +190,16 @@ const NewPost = () => {
     setImgId(tempId);
   }
 
+  const handleCancel = () => {
+    setShowModal(false);
+    setPreview([]);
+    setImages([]);
+    setImgId(0);
+    setFileLimit(0);
+    setHasLeft(false);
+    setHasRight(false);
+  }
+
   return (
     <NewPostWrapper>
       <label htmlFor="upload-post">
@@ -207,11 +217,11 @@ const NewPost = () => {
         <Modal>
           <div className="modal-content">
             <div className="newpost-header">
-              <h3 onClick={() => setShowModal(false)}>Cancel</h3>
+              <h3 onClick={handleCancel}>Cancel</h3>
               <h3 onClick={handleSubmitPost}>Share</h3>
             </div>
             {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
-            {!hasLeft && (<button className = "empty-button"></button>)}
+            {!hasLeft && (<button className = "empty-button" disabled></button>)}
             {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
               <img className="post-preview" src={preview[imgId]} alt="preview" />
             <div>
