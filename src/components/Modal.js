@@ -35,6 +35,8 @@ export const ModalWrapper = styled.div`
     height: 700px;
     object-fit: cover;
   }
+
+
 `;
 
 const Modal = ({ children }) => {

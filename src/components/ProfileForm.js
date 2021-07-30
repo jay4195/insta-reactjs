@@ -102,6 +102,9 @@ const ProfileForm = () => {
       uploadImage(e.target.files[0]).then((res) =>
         setNewAvatar(res.secure_url)
       );
+      var tempId = user.avatar.lastIndexOf('/');
+      var fileName = user.avatar.substring(tempId + 1);
+      client(`/posts/avatar/${fileName}`, { method: "DELETE" });
     }
   };
 

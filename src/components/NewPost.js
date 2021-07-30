@@ -160,6 +160,8 @@ const NewPost = () => {
             window.scrollTo(0, 0);
             toast.success("Your post has been submitted successfully");
           });
+          //提交完重新刷新页面
+          window.location.reload();
         }
       });
     }
