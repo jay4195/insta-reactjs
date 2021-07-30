@@ -31,9 +31,9 @@ export const ModalWrapper = styled.div`
   }
 
   .modal-content img.post-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 700px;
+    height: 700px;
+    object-fit: cover;
   }
 `;
 

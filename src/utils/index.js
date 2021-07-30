@@ -33,9 +33,9 @@ export const timeSince = (timestamp) => {
 export const client = (endpoint, { body, ...customConfig } = {}) => {
   const token = localStorage.getItem("token");
   const headers = { "Content-Type": "application/json" };
-
+  
   if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    headers.token = `${token}`;
   }
 
   const config = {

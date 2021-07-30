@@ -47,7 +47,7 @@ const Signup = ({ login }) => {
       return toast.error(err.message);
     }
 
-    const user = await client("/auth/me", { body });
+    const user = await client("/auth/me");
     setUser(user.data);
     localStorage.setItem("user", JSON.stringify(user.data));
 

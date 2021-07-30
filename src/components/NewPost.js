@@ -14,6 +14,38 @@ const NewPostWrapper = styled.div`
     padding: 0.5rem 1rem;
   }
 
+  .left-button {
+    background:url('/angle-left.png');
+    height: 30px;
+    width: 30px;
+    border: none;
+    position: relative;
+    top: 350px;
+    left: 10px;
+    opacity: 70%;
+  }
+
+  .empty-button {
+    height: 30px;
+    width: 30px;
+    border: none;
+    position: relative;
+    top: 350px;
+    left: 10px;
+    opacity: 0%;
+  }
+
+  .right-button {
+    background:url('/angle-right.png');
+    height: 30px;
+    width: 30px;
+    border: none;
+    position: relative;
+    top: 350px;
+    left: 630px;
+    opacity: 70%;
+  }
+
   .newpost-header h3:first-child {
     color: ${(props) => props.theme.red};
   }
@@ -47,27 +79,47 @@ const NewPostWrapper = styled.div`
   }
 `;
 
+
 const NewPost = () => {
   const { feed, setFeed } = useContext(FeedContext);
   const [showModal, setShowModal] = useState(false);
   const caption = useInput("");
-  const [preview, setPreview] = useState("");
-  const [postImage, setPostImage] = useState("");
+  // preview = new Array();
+  const [preview, setPreview] = useState([]);
+  // const [postImage, setPostImage] = useState([]);
+  const [images, setImages] = useState([]);
+  const [fileLimit, setFileLimit] = useState(0);
+  const [imgId, setImgId] = useState(0);
+  const [hasLeft, setHasLeft] = useState(false);
+  const [hasRight, setHasRight] = useState(false);
 
   const handleUploadImage = (e) => {
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        setPreview(e.target.result);
-        setShowModal(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-
-      uploadImage(e.target.files[0]).then((res) => {
-        setPostImage(res.secure_url);
-      });
+    var readImages = e.target.files;
+    var fileLength = e.target.files.length > 6 ? 6 : readImages.length;
+    if (fileLength > 1) {
+      setHasRight(true);
     }
+    var tempPreview = new Array(fileLength);
+    const reader = new FileReader();  
+    function readPreview(index) {
+      if(index >= fileLength) {
+        return;
+      }
+      reader.onload = (e) => {
+        let temp = e.target.result;
+        tempPreview[index] = temp;
+        setPreview(tempPreview);
+        readPreview(index + 1);
+        //所有的照片都加载完了，再显示图片
+        if (index == fileLength - 1) {
+          setShowModal(true);
+        }
+      }
+      reader.readAsDataURL(readImages[index]);
+    }
+    readPreview(0);
+    setImages(readImages);
+    setFileLimit(fileLength);
   };
 
   const handleSubmitPost = () => {
@@ -88,22 +140,55 @@ const NewPost = () => {
 
     caption.setValue("");
 
-    const newPost = {
-      caption: cleanedCaption,
-      files: [postImage],
-      tags,
-    };
+    var postImage = [];
 
-    client(`/posts`, { body: newPost }).then((res) => {
-      const post = res.data;
-      post.isLiked = false;
-      post.isSaved = false;
-      post.isMine = true;
-      setFeed([post, ...feed]);
-      window.scrollTo(0, 0);
-      toast.success("Your post has been submitted successfully");
-    });
+    for (var i = 0; i < fileLimit; i++) {
+      uploadImage(images[i]).then((res) => {
+        postImage.push(res.secure_url);
+        if (postImage.length === fileLimit) {
+          const newPost = {
+            caption: cleanedCaption,
+            files: postImage,
+            tags,
+          };
+          client(`/posts`, { body: newPost }).then((res) => {
+            const post = res.data;
+            post.isLiked = false;
+            post.isSaved = false;
+            post.isMine = true;
+            setFeed([post, ...feed]);
+            window.scrollTo(0, 0);
+            toast.success("Your post has been submitted successfully");
+          });
+        }
+      });
+    }
   };
+
+  const setButtonStates = (tempId) => {
+    if (tempId == 0) {
+      setHasLeft(false);
+    } else {
+      setHasLeft(true);
+    }
+    if (tempId < fileLimit - 1 && fileLimit > 1) {
+      setHasRight(true);
+    } else {
+      setHasRight(false);
+    }
+  }
+
+  const clickLeftButton = () => {
+    let tempId = imgId - 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
+  }
+
+  const clickRightButton = () => {
+    let tempId = imgId + 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
+  }
 
   return (
     <NewPostWrapper>
@@ -113,6 +198,7 @@ const NewPost = () => {
       <input
         id="upload-post"
         type="file"
+        multiple="multiple"
         onChange={handleUploadImage}
         accept="image/*"
         style={{ display: "none" }}
@@ -124,9 +210,10 @@ const NewPost = () => {
               <h3 onClick={() => setShowModal(false)}>Cancel</h3>
               <h3 onClick={handleSubmitPost}>Share</h3>
             </div>
-            {preview && (
-              <img className="post-preview" src={preview} alt="preview" />
-            )}
+            {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
+            {!hasLeft && (<button className = "empty-button"></button>)}
+            {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
+              <img className="post-preview" src={preview[imgId]} alt="preview" />
             <div>
               <textarea
                 placeholder="Add caption"
