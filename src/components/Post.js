@@ -131,15 +131,49 @@ export const PostWrapper = styled.div`
     cursor: pointer;
   }
 
+  .add-comment {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid ${(props) => props.theme.borderColor};
+  }
+
+  .comment-area {
+    flex: 1;
+  }
+
   textarea {
     height: 100%;
     width: 100%;
+    flex: 1;
     border: none;
-    border-top: 1px solid ${(props) => props.theme.borderColor};
     resize: none;
     padding: 1rem 0 0 1rem;
     font-size: 1rem;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+
+  .post-button {
+    border: none;
+    font-weight: 500;
+    color: rgba(var(--d69,0,149,246),1);
+    background-color:transparent;
+    font-size:1rem;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display: inline;
+    padding: 1rem 1rem 1rem 1rem;
+  }
+
+  .post-noinput-button {
+    border: none;
+    font-weight: 500;
+    color: rgba(var(--d69,0,149,246),1);
+    background-color:transparent;
+    font-size:1rem;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display: inline;
+    padding: 1rem 1rem 1rem 1rem;
+    opacity: 0.3;
+    cursor: auto;
   }
 
   @media screen and (max-width: 690px) {
@@ -166,14 +200,13 @@ const Post = ({ post }) => {
   const incLikes = () => setLikes(likesState + 1);
   const decLikes = () => setLikes(likesState - 1);
 
-  const handleAddComment = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
+  var hasValue = comment.value !== "";
 
+  const handleAddComment = () => {
+    if (comment.value !== "") {
       client(`/posts/${post._id}/comments`, {
         body: { text: comment.value },
       }).then((resp) => setNewComments([...newComments, resp.data]));
-
       comment.setValue("");
     }
   };
@@ -293,13 +326,22 @@ const Post = ({ post }) => {
       </div>
 
       <div className="add-comment">
+        <div className="comment-area">
         <textarea
           columns="3"
           placeholder="Add a Comment..."
           value={comment.value}
           onChange={comment.onChange}
-          onKeyDown={handleAddComment}
         ></textarea>
+        </div>
+        <div className = "button-area">
+          {!hasValue && (
+            <button className="post-noinput-button" disabled>Post</button> 
+          )}
+          {hasValue && (
+            <button className="post-button" onClick={handleAddComment}>Post</button> 
+          )}
+        </div>
       </div>
     </PostWrapper>
   );
