@@ -31,8 +31,8 @@ export const ModalWrapper = styled.div`
   }
 
   .modal-content img.post-preview {
-    width: 700px;
-    height: 700px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 

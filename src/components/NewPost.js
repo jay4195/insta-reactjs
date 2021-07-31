@@ -19,6 +19,12 @@ const NewPostWrapper = styled.div`
 		align-items: center;
   }
 
+  .post-preview {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+  }
+
   .left-button {
     background:url('/angle-left.png');
     height: 30px;
