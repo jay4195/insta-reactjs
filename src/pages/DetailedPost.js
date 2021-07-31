@@ -108,7 +108,7 @@ const Wrapper = styled.div`
     resize: none;
     padding: 1rem 0 0 1rem;
     font-size: 1rem;
-    font-family: "Fira Sans", sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
 
   @media screen and (max-width: 840px) {
@@ -306,7 +306,7 @@ const DetailedPost = () => {
         <div className="add-comment">
           <textarea
             columns="2"
-            placeholder="Add a Comment"
+            placeholder="Add a Comment..."
             value={comment.value}
             onChange={comment.onChange}
             onKeyDown={handleAddComment}
