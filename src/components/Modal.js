@@ -20,7 +20,7 @@ export const ModalWrapper = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
-  overflow: hidden;
+  overflow: scroll;
   animation: ${openModal} 0.5s ease-in-out;
 
   .modal-content {
@@ -35,8 +35,6 @@ export const ModalWrapper = styled.div`
     height: 100%;
     object-fit: cover;
   }
-
-
 `;
 
 const Modal = ({ children }) => {
