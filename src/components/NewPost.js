@@ -19,12 +19,6 @@ const NewPostWrapper = styled.div`
 		align-items: center;
   }
 
-  .post-preview {
-    height: 100%;
-    width: 100%;
-    object-fit: fill;
-  }
-
   .left-button {
     background:url('/angle-left.png');
     height: 30px;
@@ -110,7 +104,7 @@ const NewPost = () => {
         setPreview(tempPreview);
         readPreview(index + 1);
         //所有的照片都加载完了，再显示图片
-        if (index == fileLength - 1) {
+        if (index === fileLength - 1) {
           setShowModal(true);
         }
       }
@@ -167,7 +161,7 @@ const NewPost = () => {
   };
 
   const setButtonStates = (tempId) => {
-    if (tempId == 0) {
+    if (tempId === 0) {
       setHasLeft(false);
     } else {
       setHasLeft(true);
