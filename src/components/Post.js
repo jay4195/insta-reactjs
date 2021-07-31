@@ -70,6 +70,8 @@ export const PostWrapper = styled.div`
 
   .post-header h3 {
     cursor: pointer;
+    font-size: 1rem;
+    font-weight:500;
   }
 
   .post-image-wrapper {
