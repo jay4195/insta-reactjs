@@ -217,7 +217,7 @@ const DetailedPost = () => {
   }, [postId]);
 
   const setButtonStates = (tempId) => {
-    if (tempId == 0) {
+    if (tempId === 0) {
       setHasLeft(false);
     } else {
       setHasLeft(true);
