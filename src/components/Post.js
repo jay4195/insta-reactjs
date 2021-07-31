@@ -11,6 +11,7 @@ import Avatar from "../styles/Avatar";
 import { client } from "../utils";
 import { timeSince } from "../utils";
 import { MoreIcon, CommentIcon, InboxIcon } from "./Icons";
+import { RoundNumber } from "./RoundNumber";
 
 const ModalContentWrapper = styled.div`
   width: 300px;
@@ -257,7 +258,7 @@ const Post = ({ post }) => {
       <div className="likes-caption-comments">
         {likesState !== 0 && (
           <span className="likes bold">
-            {likesState} {likesState > 1 ? "likes" : "like"}
+            {RoundNumber(likesState)} {likesState > 1 ? "likes" : "like"}
           </span>
         )}
 

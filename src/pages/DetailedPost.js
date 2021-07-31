@@ -13,6 +13,7 @@ import useInput from "../hooks/useInput";
 import { client } from "../utils";
 import { timeSince } from "../utils";
 import { MoreIcon, CommentIcon, InboxIcon } from "../components/Icons";
+import { RoundNumber } from "../components/RoundNumber";
 
 const Wrapper = styled.div`
   display: grid;
@@ -290,7 +291,7 @@ const DetailedPost = () => {
 
           {likesState !== 0 && (
             <span className="likes bold">
-              {likesState} {likesState > 1 ? "likes" : "like"}
+              {RoundNumber(likesState)} {likesState > 1 ? "likes" : "like"}
             </span>
           )}
         </div>
