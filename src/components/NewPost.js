@@ -14,35 +14,28 @@ const NewPostWrapper = styled.div`
     padding: 0.5rem 1rem;
   }
 
+  .newpost-image-wrapper {
+		display: flex;
+		align-items: center;
+  }
+
   .left-button {
     background:url('/angle-left.png');
     height: 30px;
     width: 30px;
+    position: absolute;
+    margin-left: 5px;
     border: none;
-    position: relative;
-    top: 350px;
-    left: 10px;
     opacity: 70%;
-  }
-
-  .empty-button {
-    height: 30px;
-    width: 30px;
-    border: none;
-    position: relative;
-    top: 350px;
-    left: 10px;
-    opacity: 0%;
   }
 
   .right-button {
     background:url('/angle-right.png');
     height: 30px;
     width: 30px;
+    position: absolute;
+    margin-left: -35px;
     border: none;
-    position: relative;
-    top: 350px;
-    left: 630px;
     opacity: 70%;
   }
 
@@ -222,10 +215,17 @@ const NewPost = () => {
               <h3 onClick={handleCancel}>Cancel</h3>
               <h3 onClick={handleSubmitPost}>Share</h3>
             </div>
-            {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
-            {!hasLeft && (<button className = "empty-button" disabled></button>)}
-            {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
+            <div className = "newpost-image-wrapper">
+              <div>
+              {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
+              </div>
+              <div>
               <img className="post-preview" src={preview[imgId]} alt="preview" />
+              </div>
+              <div>
+              {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
+              </div>
+            </div>
             <div>
               <textarea
                 placeholder="Add caption"

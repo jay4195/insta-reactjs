@@ -35,6 +35,31 @@ const Wrapper = styled.div`
     align-items: center;
   }
 
+  .post-image-wrapper {
+		display: flex;
+		align-items: center;
+  }
+
+  .left-button {
+    background:url('/angle-left.png');
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: 5px;
+    border: none;
+    opacity: 70%;
+  }
+
+  .right-button {
+    background:url('/angle-right.png');
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: -35px;
+    border: none;
+    opacity: 70%;
+  }
+
   .post-img {
     width: 100%;
     height: 100%;
@@ -112,6 +137,12 @@ const DetailedPost = () => {
   const [likesState, setLikes] = useState(0);
   const [commentsState, setComments] = useState([]);
 
+  //post
+  const [postLength, setPostLength] = useState(0);
+  const [hasLeft, setHasLeft] = useState(false);
+  const [hasRight, setHasRight] = useState(false);
+  const [imgId, setImgId] = useState(0);
+
   const incLikes = () => setLikes(likesState + 1);
   const decLikes = () => setLikes(likesState - 1);
 
@@ -138,6 +169,11 @@ const DetailedPost = () => {
     client(`/posts/${postId}`)
       .then((res) => {
         setPost(res.data);
+        var length = res.data.files.length;
+        setPostLength(length);
+        if (length > 1) {
+          setHasRight(true);
+        }
         setComments(res.data.comments);
         setLikes(res.data.likesCount);
         setLoading(false);
@@ -145,6 +181,31 @@ const DetailedPost = () => {
       })
       .catch((err) => setDeadend(true));
   }, [postId]);
+
+  const setButtonStates = (tempId) => {
+    if (tempId == 0) {
+      setHasLeft(false);
+    } else {
+      setHasLeft(true);
+    }
+    if (tempId < postLength - 1 && postLength > 1) {
+      setHasRight(true);
+    } else {
+      setHasRight(false);
+    }
+  };
+
+  const clickLeftButton = () => {
+    let tempId = imgId - 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
+  };
+
+  const clickRightButton = () => {
+    let tempId = imgId + 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
+  };
 
   if (!deadend && loading) {
     return <Loader />;
@@ -161,11 +222,21 @@ const DetailedPost = () => {
 
   return (
     <Wrapper>
-      <img
-        className="post-img"
-        src={post.files?.length && post.files[0]}
-        alt="post"
-      />
+      <div className = "post-image-wrapper">
+         <div>
+          {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
+          </div>
+          <div>
+          <img
+            className="post-img"
+            src={post.files[imgId]}
+            alt="post-img"
+          />
+          </div>
+          <div>
+          {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
+          </div>
+      </div>
 
       <div className="post-info">
         <div className="post-header-wrapper">

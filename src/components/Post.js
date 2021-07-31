@@ -71,9 +71,34 @@ export const PostWrapper = styled.div`
     cursor: pointer;
   }
 
+  .post-image-wrapper {
+		display: flex;
+		align-items: center;
+  }
+
   .post-img {
     width: 100%;
     height: 100%;
+  }
+
+  .left-button {
+    background:url('/angle-left.png');
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: 5px;
+    border: none;
+    opacity: 70%;
+  }
+
+  .right-button {
+    background:url('/angle-right.png');
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: -35px;
+    border: none;
+    opacity: 70%;
   }
 
   .post-actions {
@@ -131,6 +156,12 @@ const Post = ({ post }) => {
   const [newComments, setNewComments] = useState([]);
   const [likesState, setLikes] = useState(post.likesCount);
 
+  const postLength = post.files.length;
+  const postImages = post.files;
+  const [hasLeft, setHasLeft] = useState(false);
+  const [hasRight, setHasRight] = useState(postLength > 1 ? true : false);
+  const [imgId, setImgId] = useState(0);
+
   const incLikes = () => setLikes(likesState + 1);
   const decLikes = () => setLikes(likesState - 1);
 
@@ -144,6 +175,31 @@ const Post = ({ post }) => {
 
       comment.setValue("");
     }
+  };
+
+  const setButtonStates = (tempId) => {
+    if (tempId == 0) {
+      setHasLeft(false);
+    } else {
+      setHasLeft(true);
+    }
+    if (tempId < postLength - 1 && postLength > 1) {
+      setHasRight(true);
+    } else {
+      setHasRight(false);
+    }
+  };
+
+  const clickLeftButton = () => {
+    let tempId = imgId - 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
+  };
+
+  const clickRightButton = () => {
+    let tempId = imgId + 1;
+    setButtonStates(tempId);
+    setImgId(tempId);
   };
 
   return (
@@ -171,13 +227,21 @@ const Post = ({ post }) => {
         )}
         {post.isMine && <MoreIcon onClick={() => setShowModal(true)} />}
       </div>
-
-      <img
-        className="post-img"
-        src={post.files?.length && post.files[0]}
-        alt="post-img"
-      />
-
+        <div className = "post-image-wrapper">
+        <div>
+          {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
+          </div>
+          <div>
+          <img
+            className="post-img"
+            src={postImages[imgId]}
+            alt="post-img"
+          />
+          </div>
+          <div>
+          {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
+          </div>
+        </div>
       <div className="post-actions">
         <LikePost
           isLiked={post.isLiked}
