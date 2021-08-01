@@ -99,12 +99,27 @@ const ProfileForm = () => {
 
   const handleImageUpload = (e) => {
     if (e.target.files[0]) {
-      uploadImage(e.target.files[0]).then((res) =>
-        setNewAvatar(res.secure_url)
+      uploadImage(e.target.files[0]).then((res) => {
+          setNewAvatar(res.secure_url);
+          var tempId = user.avatar.lastIndexOf('/');
+          var fileName = user.avatar.substring(tempId + 1);
+          client(`/posts/avatar/${fileName}`, { method: "DELETE" });
+
+          const body = {
+            fullname: fullname.value,
+            username: username.value,
+            bio: bio.value,
+            website: website.value,
+            avatar: res.secure_url,
+            email: email.value,
+          };
+      
+          client("/users", { method: "PUT", body }).then((res) => {
+            setUser(res.data);
+            localStorage.setItem("user", JSON.stringify(res.data));
+          })
+        }
       );
-      var tempId = user.avatar.lastIndexOf('/');
-      var fileName = user.avatar.substring(tempId + 1);
-      client(`/posts/avatar/${fileName}`, { method: "DELETE" });
     }
   };
 

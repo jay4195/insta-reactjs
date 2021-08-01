@@ -331,8 +331,6 @@ const DetailedPost = () => {
             </span>
             <div className="post-caption">
               <div>{post.caption}</div>
-              {console.log(tagsState)}
-              
               {tagsState.map((tag) => (
                 <span><a className="hashtag" href={"/explore/tags/"+tag.substring(1)}>{tag}</a></span>
               
