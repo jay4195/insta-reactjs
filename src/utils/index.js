@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 export const timeSince = (timestamp) => {
   const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
 
@@ -57,6 +58,11 @@ export const client = (endpoint, { body, ...customConfig } = {}) => {
 
       if (res.ok) {
         return data;
+      } else if (res.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.reload();
+        toast.error("token expired!");
       } else {
         return Promise.reject(data);
       }

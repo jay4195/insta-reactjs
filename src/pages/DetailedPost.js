@@ -51,6 +51,11 @@ const Wrapper = styled.div`
     opacity: 70%;
   }
 
+  .hashtag{
+    color: rgba(var(--fe0,0,55,107),1);
+    text-decoration: none;
+  }
+
   .right-button {
     background:url('/angle-right.png');
     height: 30px;
@@ -120,6 +125,14 @@ const Wrapper = styled.div`
     flex: 1;
   }
 
+  .post-caption-wrapper {
+    display:flex;
+    padding: 0.4rem 0px;
+    span {
+      padding-right: 0.4rem;
+    }
+  }
+
   .post-button {
     border: none;
     font-weight: 500;
@@ -170,6 +183,7 @@ const DetailedPost = () => {
 
   const [likesState, setLikes] = useState(0);
   const [commentsState, setComments] = useState([]);
+  const [tagsState, setTags] = useState([]);
 
   //post
   const [postLength, setPostLength] = useState(0);
@@ -210,6 +224,7 @@ const DetailedPost = () => {
         }
         setComments(res.data.comments);
         setLikes(res.data.likesCount);
+        setTags(res.data.tags);
         setLoading(false);
         setDeadend(false);
       })
@@ -252,7 +267,7 @@ const DetailedPost = () => {
         text="The link you followed may be broken, or the page may have been removed"
       />
     );
-  }
+  };
 
   return (
     <Wrapper>
@@ -279,7 +294,6 @@ const DetailedPost = () => {
               src={post.user?.avatar}
               alt="avatar"
             />
-
             <h3
               className="pointer"
               onClick={() => history.push(`/${post.user?.username}`)}
@@ -299,8 +313,34 @@ const DetailedPost = () => {
             </Modal>
           )}
         </div>
-
+      
         <div className="comments">
+          {post.caption !== null && (
+          <div className = "post-caption-wrapper">
+            <Avatar
+              className="pointer"
+              onClick={() => history.push(`/${comment.user.username}`)}
+              src={post.user.avatar}
+              alt="avatar"
+            />
+            <span
+              onClick={() => history.push(`/${post.user?.username}`)}
+              className="bold pointer"
+            >
+              {post.user?.username}
+            </span>
+            <div className="post-caption">
+              <div>{post.caption}</div>
+              {console.log(tagsState)}
+              
+              {tagsState.map((tag) => (
+                <span><a className="hashtag" href={"/explore/tags/"+tag.substring(1)}>{tag}</a></span>
+              
+              ))}
+            </div>
+          </div>
+          )}
+
           {commentsState.map((comment) => (
             <Comment key={comment._id} comment={comment} />
           ))}
