@@ -118,6 +118,7 @@ const ProfileForm = () => {
             setUser(res.data);
             localStorage.setItem("user", JSON.stringify(res.data));
           })
+          .catch((err) => toast.error(err.message));
         }
       );
     }
