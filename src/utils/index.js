@@ -4,28 +4,48 @@ export const timeSince = (timestamp) => {
 
   let interval = Math.floor(seconds / 31536000);
 
-  if (interval > 1) {
-    return interval + " years";
+  if (interval >= 1) {
+    let ret = interval + "year";
+    if (interval > 1) {
+      ret += "s";
+    }
+    return ret;
   }
 
   interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
-    return interval + " months";
+  if (interval >= 1) { 
+    let ret = interval + " month";
+    if (interval > 1) {
+      ret += "s";
+    }
+    return ret;
   }
 
   interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
-    return interval + " days";
+  if (interval >= 1) {
+    let ret = interval + " day";
+    if (interval > 1) {
+      ret += "s";
+    }
+    return ret;
   }
 
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
-    return interval + " hours";
+  if (interval >= 1) {
+    let ret = interval + " hour";
+    if (interval > 1) {
+      ret += "s";
+    }
+    return ret;
   }
 
   interval = Math.floor(seconds / 60);
-  if (interval > 1) {
-    return interval + " minutes";
+  if (interval >= 1) {
+    let ret = interval + " minute";
+    if (interval > 1) {
+      ret += "s";
+    }
+    return ret;
   }
 
   return Math.floor(seconds) + " seconds";
