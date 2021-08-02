@@ -82,6 +82,13 @@ export const PostWrapper = styled.div`
   .post-img {
     width: 100%;
     height: 100%;
+    object-fit: fill;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
   }
 
   .left-button {
@@ -264,19 +271,15 @@ const Post = ({ post }) => {
         {post.isMine && <MoreIcon onClick={() => setShowModal(true)} />}
       </div>
         <div className = "post-image-wrapper">
-        <div>
-          {hasLeft && (<button className = "left-button" onClick={clickLeftButton}/>)}
-          </div>
-          <div>
+          {hasLeft && (<div><button className = "left-button" onClick={clickLeftButton}/></div>)}
+          <div className = "image-wrapper">
           <img
             className="post-img"
             src={postImages[imgId]}
             alt="post-img"
           />
           </div>
-          <div>
-          {hasRight && (<button className = "right-button" onClick={clickRightButton}/>)}
-          </div>
+          {hasRight && (<div><button className = "right-button" onClick={clickRightButton}/></div>)}
         </div>
       <div className="post-actions">
         <LikePost
