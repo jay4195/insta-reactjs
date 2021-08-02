@@ -38,6 +38,10 @@ const Wrapper = styled.div`
     justify-content: center;
   }
 
+  .infinite-scroll-wrapper {
+    object-fit: fill;
+  }
+
   .profile-tab span {
     padding-left: 0.3rem;
   }
@@ -147,7 +151,7 @@ const Profile = () => {
               icon="post"
             />
           ) : (
-              <div>
+              <div className = "infinite-scroll-wrapper">
                 <InfiniteScroll
                   dataLength={currentNum}
                   next={fetchMoreData}
@@ -155,7 +159,7 @@ const Profile = () => {
                   loader={<div className = "loader"><ReactLoading type={"spin"} delay={100} color={"#cccccc"} height={30} width={30}/></div>}
                   endMessage={
                     <p style={{ textAlign: "center" }}>
-                      <span class = "pointer">instagram © facebook {printDate(new Date())}</span>
+                      <span className = "pointer">instagram © facebook {new Date().getFullYear()}</span>
                     </p>
                   }
                 >

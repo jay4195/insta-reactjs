@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 	img {
 		border-radius: 4px;
 		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-		width: 300px;
-		height: 300px;
+		width: 290px;
+		height: 290px;
 		object-fit: cover;
 	}
 
