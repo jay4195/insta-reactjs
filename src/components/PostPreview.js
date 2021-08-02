@@ -35,8 +35,8 @@ const Wrapper = styled.div`
 		right: 0;
 		bottom: 0;
 		background-color: rgba(0, 0, 0, 0.6);
-		width: 300px;
-		height: 300px;
+		width: 290px;
+		height: 290px;
 		z-index: 4;
 		display: none;
 	}
