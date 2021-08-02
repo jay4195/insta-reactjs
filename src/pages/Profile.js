@@ -7,6 +7,17 @@ import Placeholder from "../components/Placeholder";
 import Loader from "../components/Loader";
 import { PostIcon, SavedIcon } from "../components/Icons";
 import { client } from "../utils";
+import InfiniteScroll from "react-infinite-scroll-component";
+import ReactLoading from 'react-loading';
+import { render } from "react-dom";
+import { printDate } from "../utils";
+
+const style = {
+  height: 30,
+  border: "1px solid green",
+  margin: 6,
+  padding: 8
+};
 
 const Wrapper = styled.div`
   .profile-tab {
@@ -22,6 +33,11 @@ const Wrapper = styled.div`
     margin-right: 3rem;
   }
 
+  .loader {
+    display: flex;
+    justify-content: center;
+  }
+
   .profile-tab span {
     padding-left: 0.3rem;
   }
@@ -34,6 +50,7 @@ const Wrapper = styled.div`
   hr {
     border: 0.5px solid ${(props) => props.theme.borderColor};
   }
+
 `;
 
 const Profile = () => {
@@ -43,6 +60,12 @@ const Profile = () => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const [deadend, setDeadend] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [feedPosts, setFeedPosts] = useState([]);
+  const [postNum, setPostNum] = useState(0);
+  const [currentNum, setCurrentNum] = useState(0);
+  const imgFeedLength = 2;
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,9 +74,34 @@ const Profile = () => {
         setLoading(false);
         setDeadend(false);
         setProfile(res.data);
+        var totalPosts = res.data.posts;
+        setPosts(totalPosts);
+        setPostNum(totalPosts.length);
+        setHasMore(totalPosts.length > 0);
+        if (totalPosts.length > imgFeedLength) {
+          setFeedPosts(totalPosts.slice(0, imgFeedLength));
+          setCurrentNum(imgFeedLength);
+        } else {
+          setFeedPosts(totalPosts);
+        }
+
       })
       .catch((err) => setDeadend(true));
   }, [username]);
+
+  const fetchMoreData = () => {
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+    console.log("fetch more data");
+    if (currentNum + imgFeedLength < postNum) {
+      setFeedPosts(posts.slice(0, currentNum + imgFeedLength));
+      setCurrentNum(currentNum + imgFeedLength);
+    } else {
+      setFeedPosts(posts);
+      setHasMore(false);
+    }
+    setTimeout(function(){ }, 3000);
+  };
 
   if (!deadend && loading) {
     return <Loader />;
@@ -99,7 +147,21 @@ const Profile = () => {
               icon="post"
             />
           ) : (
-            <PostPreview posts={profile?.posts} />
+              <div>
+                <InfiniteScroll
+                  dataLength={currentNum}
+                  next={fetchMoreData}
+                  hasMore={hasMore}
+                  loader={<div className = "loader"><ReactLoading type={"spin"} delay={100} color={"#cccccc"} height={30} width={30}/></div>}
+                  endMessage={
+                    <p style={{ textAlign: "center" }}>
+                      <span class = "pointer">instagram © facebook {printDate(new Date())}</span>
+                    </p>
+                  }
+                >
+                  <PostPreview posts={feedPosts} />
+                </InfiniteScroll>
+              </div>
           )}
         </>
       )}

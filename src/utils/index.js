@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-const printDate = (date) => {
+export const printDate = (date) => {
   const monthsInEng = ['JANURARY', 'FEBURARY', 'MARCH', 'APRAL', 'MAY', 'JUNE',
   'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
 
