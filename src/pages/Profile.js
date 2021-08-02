@@ -9,15 +9,7 @@ import { PostIcon, SavedIcon } from "../components/Icons";
 import { client } from "../utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ReactLoading from 'react-loading';
-import { render } from "react-dom";
-import { printDate } from "../utils";
 
-const style = {
-  height: 30,
-  border: "1px solid green",
-  margin: 6,
-  padding: 8
-};
 
 const Wrapper = styled.div`
   .profile-tab {
@@ -49,6 +41,10 @@ const Wrapper = styled.div`
   .profile-tab svg {
     height: 24px;
     width: 24px;
+  }
+
+  .end-message {
+    color: rgba(var(--f52,142,142,142),1);
   }
 
   hr {
@@ -156,10 +152,10 @@ const Profile = () => {
                   dataLength={currentNum}
                   next={fetchMoreData}
                   hasMore={hasMore}
-                  loader={<div className = "loader"><ReactLoading type={"spin"} delay={100} color={"#cccccc"} height={30} width={30}/></div>}
+                  loader={<div className = "loader"><ReactLoading type={"spin"} delay={50} color={"#cccccc"} height={30} width={30}/></div>}
                   endMessage={
                     <p style={{ textAlign: "center" }}>
-                      <span className = "pointer">instagram © facebook {new Date().getFullYear()}</span>
+                      <span className = "end-message">© {new Date().getFullYear()} Instagram from Facebook</span>
                     </p>
                   }
                 >
