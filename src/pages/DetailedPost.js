@@ -369,7 +369,7 @@ const DetailedPost = () => {
           style={{ display: "block", padding: "0 1rem", paddingBottom: "1rem" }}
           className="secondary"
         >
-          {timeSince(post.createdAt)} ago
+          {timeSince(post.createdAt)}
         </span>
 
         <div className="add-comment">

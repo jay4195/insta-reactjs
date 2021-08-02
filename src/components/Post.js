@@ -327,7 +327,7 @@ const Post = ({ post }) => {
           <Comment key={comment._id} hideavatar={true} comment={comment} />
         ))}
 
-        <span className="secondary">{timeSince(post?.createdAt)} ago</span>
+        <span className="secondary">{timeSince(post?.createdAt)}</span>
       </div>
 
       <div className="add-comment">

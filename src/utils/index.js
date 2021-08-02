@@ -1,33 +1,30 @@
 import { toast } from "react-toastify";
+
+const printDate = (date) => {
+  const monthsInEng = ['JANURARY', 'FEBURARY', 'MARCH', 'APRAL', 'MAY', 'JUNE',
+  'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+
+  var currentYear = new Date().getFullYear();
+  if (currentYear === date.getFullYear()) {
+    return monthsInEng[date.getMonth()] + " " + date.getDate();
+  } else {
+    return monthsInEng[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+  }
+};
+
 export const timeSince = (timestamp) => {
   const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
+  
+  var postDate = new Date(timestamp);
+  //console.log(printDate(postDate));
 
-  let interval = Math.floor(seconds / 31536000);
-
-  if (interval >= 1) {
-    let ret = interval + "year";
-    if (interval > 1) {
-      ret += "s";
-    }
-    return ret;
-  }
-
-  interval = Math.floor(seconds / 2592000);
-  if (interval >= 1) { 
-    let ret = interval + " month";
-    if (interval > 1) {
-      ret += "s";
-    }
-    return ret;
-  }
-
-  interval = Math.floor(seconds / 86400);
-  if (interval >= 1) {
-    let ret = interval + " day";
-    if (interval > 1) {
-      ret += "s";
-    }
-    return ret;
+  var interval = Math.floor(seconds / 86401);
+  if (interval > 30) {
+    return printDate(postDate);
+  } else if(interval > 1 && interval <= 30) {
+    return interval + " days ago";
+  } else if(interval === 1) {
+    return interval + " day ago";
   }
 
   interval = Math.floor(seconds / 3600);
@@ -36,7 +33,7 @@ export const timeSince = (timestamp) => {
     if (interval > 1) {
       ret += "s";
     }
-    return ret;
+    return ret + " ago";
   }
 
   interval = Math.floor(seconds / 60);
@@ -45,10 +42,10 @@ export const timeSince = (timestamp) => {
     if (interval > 1) {
       ret += "s";
     }
-    return ret;
+    return ret + " ago";
   }
 
-  return Math.floor(seconds) + " seconds";
+  return Math.floor(seconds) + " seconds ago";
 };
 
 export const client = (endpoint, { body, ...customConfig } = {}) => {
