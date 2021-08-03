@@ -63,7 +63,7 @@ const Profile = () => {
   const [feedPosts, setFeedPosts] = useState([]);
   const [postNum, setPostNum] = useState(0);
   const [currentNum, setCurrentNum] = useState(0);
-  const imgFeedLength = 3;
+  const imgFeedLength = 2;
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
