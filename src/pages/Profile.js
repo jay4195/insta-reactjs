@@ -63,7 +63,7 @@ const Profile = () => {
   const [feedPosts, setFeedPosts] = useState([]);
   const [postNum, setPostNum] = useState(0);
   const [currentNum, setCurrentNum] = useState(0);
-  const imgFeedLength = 2;
+  const imgFeedLength = 3;
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
@@ -91,13 +91,16 @@ const Profile = () => {
   const fetchMoreData = () => {
     // a fake async api call like which sends
     // 20 more records in 1.5 secs
-    if (currentNum + imgFeedLength < postNum) {
-      setFeedPosts(posts.slice(0, currentNum + imgFeedLength));
-      setCurrentNum(currentNum + imgFeedLength);
-    } else {
-      setFeedPosts(posts);
-      setHasMore(false);
-    }
+    setTimeout(() => {
+      if (currentNum + imgFeedLength < postNum) {
+        setFeedPosts(posts.slice(0, currentNum + imgFeedLength));
+        setCurrentNum(currentNum + imgFeedLength);
+      } else {
+        setFeedPosts(posts);
+        setHasMore(false);
+      }
+
+    }, 200);
   };
 
   if (!deadend && loading) {
