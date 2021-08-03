@@ -10,7 +10,6 @@ import { client } from "../utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ReactLoading from 'react-loading';
 
-
 const Wrapper = styled.div`
   .profile-tab {
     display: flex;
@@ -64,7 +63,7 @@ const Profile = () => {
   const [feedPosts, setFeedPosts] = useState([]);
   const [postNum, setPostNum] = useState(0);
   const [currentNum, setCurrentNum] = useState(0);
-  const imgFeedLength = 2;
+  const imgFeedLength = 3;
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
@@ -92,7 +91,6 @@ const Profile = () => {
   const fetchMoreData = () => {
     // a fake async api call like which sends
     // 20 more records in 1.5 secs
-    console.log("fetch more data");
     if (currentNum + imgFeedLength < postNum) {
       setFeedPosts(posts.slice(0, currentNum + imgFeedLength));
       setCurrentNum(currentNum + imgFeedLength);
@@ -100,7 +98,6 @@ const Profile = () => {
       setFeedPosts(posts);
       setHasMore(false);
     }
-    setTimeout(function(){ }, 3000);
   };
 
   if (!deadend && loading) {
@@ -149,9 +146,10 @@ const Profile = () => {
           ) : (
               <div className = "infinite-scroll-wrapper">
                 <InfiniteScroll
-                  dataLength={currentNum}
+                  dataLength={feedPosts.length}
                   next={fetchMoreData}
                   hasMore={hasMore}
+                  scrollThreshold={"1px"}
                   loader={<div className = "loader"><ReactLoading type={"spin"} delay={50} color={"#cccccc"} height={30} width={30}/></div>}
                   endMessage={
                     <p style={{ textAlign: "center" }}>
