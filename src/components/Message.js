@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Avatar from "../styles/Avatar";
+import { useHistory } from "react-router-dom";
 
 const MessageWrapper = styled.div`
     .message-timestamp {
@@ -20,12 +21,13 @@ const MessageWrapper = styled.div`
     }
 
     .receive-message {
-        width : 60%;
+        width : auto;
+        max-width: 60%;
         font-size: 12px;
         border-radius: 1rem;
         border: 1px solid ${(props) => props.theme.borderColor};
-        padding-left: 1rem;
-        padding-right: 0.5rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
@@ -40,13 +42,14 @@ const MessageWrapper = styled.div`
     }
 
     .send-message {
-        width : 60%;
+        width : auto;
+        max-width: 60%;
         float: right;
         font-size: 12px;
         border-radius: 1rem;
         border: 1px solid ${(props) => props.theme.borderColor};
-        padding-left: 1rem;
-        padding-right: 0.5rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         background: #dbdbdb;
@@ -76,27 +79,33 @@ const printDate = (date) => {
     const monthsInEng = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     var currentYear = new Date().getFullYear();
-    if (currentYear === date.getFullYear()) {
+    // console.log(date);
+    var messageDate = new Date(date);
+    // console.log(messageDate);
+    if (currentYear === messageDate.getFullYear()) {
         var currentMonth = new Date().getMonth();
         var currentDate = new Date().getDate();
-        if (currentMonth === date.getMonth() && currentDate === date.getDate()) {
-            return printHHMM(date.getHours(), date.getMinutes()); 
+        if (currentMonth === messageDate.getMonth() && currentDate === messageDate.getDate()) {
+            return printHHMM(messageDate.getHours(), messageDate.getMinutes()); 
         } else {
-            return monthsInEng[date.getMonth()] + " " + date.getDate() + " " + printHHMM(date.getHours(), date.getMinutes());
+            return monthsInEng[messageDate.getMonth()] + " " + messageDate.getDate() + " " + printHHMM(messageDate.getHours(), messageDate.getMinutes());
         }
     } else {      
-      return monthsInEng[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() + " " + printHHMM(date.getHours(), date.getMinutes());
+      return monthsInEng[messageDate.getMonth()] + " " + messageDate.getDate() + ", " + messageDate.getFullYear() + " " + printHHMM(messageDate.getHours(), messageDate.getMinutes());
     }
   };
 
 const Message = (message) => {  
-    // console.log(message);
+    const history = useHistory();
     const showTimeInterval = 15;
     var lastMessage = null;
     var msgList = message.message;
 
     const messageBox = (mes) => {
         var printTimeStamp = false;
+        var tempMsgDate = new Date(mes.createdAt);
+        // console.log(mes);
+        mes.createdAt = tempMsgDate;
         /**
          * 15分钟之内回复不加时间戳
          * 如果是当天的只显示小时和分钟
@@ -105,6 +114,7 @@ const Message = (message) => {
         if (lastMessage === null) {
             printTimeStamp = true;
         } else {
+            // console.log(lastMessage);
             var secondsElapsed = Math.floor((mes.createdAt.getTime() - lastMessage.createdAt.getTime()) / 1000);
             var minutesElapsed = Math.floor(secondsElapsed / 60);
             if (minutesElapsed > showTimeInterval) {
@@ -135,9 +145,9 @@ const Message = (message) => {
                     </div> )}
                     <div className="receive-box">
                         <Avatar
-                        // onClick={() => history.push(`/${post.user?.username}`)}
+                            onClick={() => history.push(`/direct/${mes.sender?.username}`)}
                             className="pointer avatar"
-                            src={"http://localhost:8080/upload/src=http___b-ssl.duitang._20210801151533.jpg"}
+                            src={mes.sender?.avatar}
                             alt="avatar"
                         />
                         <div className="receive-message">

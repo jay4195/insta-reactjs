@@ -7,9 +7,12 @@ import { EmojiIcon, DownChevronIcon } from "../components/Icons";
 import Avatar from "../styles/Avatar";
 import Message from "../components/Message";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Contact from "../components/Contact";
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: row;
   width:70%;
   height: 100%;
   position: relative;
@@ -195,6 +198,8 @@ const Wrapper = styled.div`
 const Direct = () => {
   // username : undefinded / username;
     const { username } = useParams();
+    const [me, setMe] = useState(null);
+    const [chatter, setChatter] = useState(null);
     // console.log(username === undefined);
     const [loading, setLoading] = useState(true);
     const message = useInput("");
@@ -202,9 +207,8 @@ const Direct = () => {
     const [row, setRow] = useState(1);
     const maxTextAreaHeight = 116;
     const [messageList, setMessageList] = useState([]);
+    const [contactList, setContactList] = useState([]);
     var tempArea = document.getElementById("message-box");
-    var date1 = new Date();
-    date1.setMinutes(12);
 
     const scrollToBottom = () => {
       if (tempArea !== null) {
@@ -212,22 +216,6 @@ const Direct = () => {
         tempArea.scrollTop = tempArea.scrollHeight;
         // console.log(tempArea.scrollTop + " " +tempArea.scrollHeight);
       }
-    }
-
-    var tempMesg = {
-      isSender: false,
-      sender: "jay4195",
-      receiver: "lisi",
-      text: "フォローしてくれてありがとう💖もしよかったらLINEとかも交換しませんか？あたし遊び友達とかもインスタで募集してるので😋大丈夫そうだったら友達追加お願いします💖",
-      createdAt: date1
-    }
-
-    tempMesg = {
-      isSender: true,
-      sender: "jay4195",
-      receiver: "lisi",
-      text: "笑笑。追加してもいいですよ。でも私は日本人にいませんので、中国人です",
-      createdAt: new Date()
     }
 
     // scrollToBottom();
@@ -248,17 +236,20 @@ const Direct = () => {
 
     const handleSendMessage = () => {
       console.log("send message");
-      tempMesg = {
+      var tempMesg = {
         isSender: true,
         sender: "jay4195",
         receiver: username,
         text: message.value,
         createdAt: new Date()
       }
-      // console.log(tempMesg.text);
       messageList.push(tempMesg);
       message.setValue("");
-      // console.log(messageList);
+
+      client(`/direct/${username}`, { body: tempMesg }).then((res) => {
+        setMessageList(res.data);
+        console.log("send");
+      });
       setTimeout(() => {
         scrollToBottom();
         var tempArea = document.getElementById("textarea");
@@ -267,29 +258,50 @@ const Direct = () => {
     }
   
     useEffect(() => {
-        setLoading(false);
-      }, []);
+      client("/direct/contact").then((res) => {
+          console.log(res.data);
+          setContactList(res.data);
+      });
+      client("/auth/me").then((res) => {
+        setMe(res.data);
+        if (username === undefined) {
+          setChatter(res.data);
+          client("/direct").then((res) => {
+            // console.log(res.data);
+            setMessageList(res.data);
+            setLoading(false);
+          });
+        } else {
+          client(`/direct/${username}/`).then((res) => {
+            setMessageList(res.data);
+            console.log(res.data);
+            client(`/direct/chatter/${username}`).then((res) => {
+              setChatter(res.data);
+              console.log(res.data);
+              setLoading(false);
+            }).catch((err) => toast.error(err.message));
+          });
+        }
+      });
+    }, []);
 
     if (loading) {
       return <Loader />;
     };
-
-    // setTimeout(() => {
-    //   scrollToBottom();
-    // }, 10);
   
     return (
       <Wrapper>
         <div className = "contact-list-wrapper">
           <div className="contact-list-header">
             <div className="chat-username">
-              username
+              {me.username}
             </div>
             <span className="down-icon">
               <DownChevronIcon/>
             </span>
           </div>
           <div className="contact-list">
+            <Contact contactList={contactList}></Contact>
           </div>
         </div>
   
@@ -299,11 +311,11 @@ const Direct = () => {
               <Avatar
                 // onClick={() => history.push(`/${post.user?.username}`)}
                 className="pointer avatar"
-                src={"http://localhost:8080/upload/src=http___b-ssl.duitang._20210801151533.jpg"}
+                src={chatter.avatar}
                 alt="avatar"
               />
               <div className="chat-username">
-                username
+                {chatter.username}
               </div>
             </div>
           </div>
