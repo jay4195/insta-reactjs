@@ -200,7 +200,7 @@ const Direct = () => {
     const { username } = useParams();
     const [me, setMe] = useState(null);
     const [chatter, setChatter] = useState(null);
-    // console.log(username === undefined);
+    // InboxIcon(username === undefined);
     const [loading, setLoading] = useState(true);
     const message = useInput("");
     var hasValue = message.value !== "";
@@ -212,16 +212,15 @@ const Direct = () => {
 
     const scrollToBottom = () => {
       if (tempArea !== null) {
-        // console.log(tempArea.scrollTop + " " +tempArea.scrollHeight);
+        // InboxIcon(tempArea.scrollTop + " " +tempArea.scrollHeight);
         tempArea.scrollTop = tempArea.scrollHeight;
-        // console.log(tempArea.scrollTop + " " +tempArea.scrollHeight);
+        // InboxIcon(tempArea.scrollTop + " " +tempArea.scrollHeight);
       }
     }
 
     // scrollToBottom();
     
     const messageChange = (message) => {
-      console.log("on change");
       var tempArea = document.getElementById("textarea");
       if (tempArea !== null) {
         tempArea.style.height = 'auto';
@@ -235,7 +234,6 @@ const Direct = () => {
     };
 
     const handleSendMessage = () => {
-      console.log("send message");
       var tempMesg = {
         isSender: true,
         sender: "jay4195",
@@ -248,7 +246,6 @@ const Direct = () => {
 
       client(`/direct/${username}`, { body: tempMesg }).then((res) => {
         setMessageList(res.data);
-        console.log("send");
       });
       setTimeout(() => {
         scrollToBottom();
@@ -259,7 +256,6 @@ const Direct = () => {
   
     useEffect(() => {
       client("/direct/contact").then((res) => {
-          console.log(res.data);
           setContactList(res.data);
       });
       client("/auth/me").then((res) => {
@@ -267,17 +263,15 @@ const Direct = () => {
         if (username === undefined) {
           setChatter(res.data);
           client("/direct").then((res) => {
-            // console.log(res.data);
+            // InboxIcon(res.data);
             setMessageList(res.data);
             setLoading(false);
           });
         } else {
           client(`/direct/${username}/`).then((res) => {
             setMessageList(res.data);
-            console.log(res.data);
             client(`/direct/chatter/${username}`).then((res) => {
               setChatter(res.data);
-              console.log(res.data);
               setLoading(false);
             }).catch((err) => toast.error(err.message));
           });

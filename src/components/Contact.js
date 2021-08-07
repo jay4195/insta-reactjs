@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Avatar from "../styles/Avatar";
 import { useHistory } from "react-router-dom";
@@ -35,7 +35,9 @@ const Contact = (contact) => {
     var contactList = contact.contactList;
     const contactBox = (contact) => {
         return (
-            <div className = "contact-box" onClick={() => history.push(`/direct/${contact?.username}`)}>
+            <div className = "contact-box" onClick={() => {
+                history.push(`/direct/${contact?.username}`);
+                window.location.reload();}}>
                 <div className="avatar-wrapper">
                     <Avatar
                         onClick={() => history.push(`/direct/${contact?.username}`)}

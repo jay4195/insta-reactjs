@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Avatar from "../styles/Avatar";
 import { useHistory } from "react-router-dom";
@@ -79,9 +79,9 @@ const printDate = (date) => {
     const monthsInEng = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     var currentYear = new Date().getFullYear();
-    // console.log(date);
+    // InboxIcon(date);
     var messageDate = new Date(date);
-    // console.log(messageDate);
+    // InboxIcon(messageDate);
     if (currentYear === messageDate.getFullYear()) {
         var currentMonth = new Date().getMonth();
         var currentDate = new Date().getDate();
@@ -104,7 +104,7 @@ const Message = (message) => {
     const messageBox = (mes) => {
         var printTimeStamp = false;
         var tempMsgDate = new Date(mes.createdAt);
-        // console.log(mes);
+        // InboxIcon(mes);
         mes.createdAt = tempMsgDate;
         /**
          * 15分钟之内回复不加时间戳
@@ -114,7 +114,7 @@ const Message = (message) => {
         if (lastMessage === null) {
             printTimeStamp = true;
         } else {
-            // console.log(lastMessage);
+            // InboxIcon(lastMessage);
             var secondsElapsed = Math.floor((mes.createdAt.getTime() - lastMessage.createdAt.getTime()) / 1000);
             var minutesElapsed = Math.floor(secondsElapsed / 60);
             if (minutesElapsed > showTimeInterval) {

@@ -16,7 +16,7 @@ export const timeSince = (timestamp) => {
   const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
   
   var postDate = new Date(timestamp);
-  //console.log(printDate(postDate));
+  //InboxIcon(printDate(postDate));
 
   var interval = Math.floor(seconds / 86401);
   if (interval > 30) {
