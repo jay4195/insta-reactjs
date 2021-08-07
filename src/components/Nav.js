@@ -5,7 +5,7 @@ import NewPost from "./NewPost";
 import Search from "./Search";
 import { UserContext } from "../context/UserContext";
 import navlogo from "../assets/navlogo.png";
-import { HomeIcon, ExploreIcon, HeartIcon } from "./Icons";
+import { HomeIcon, ExploreIcon, HeartIcon, InboxIcon } from "./Icons";
 
 const NavWrapper = styled.div`
   position: fixed;
@@ -67,6 +67,11 @@ const Nav = () => {
           <li>
             <Link to="/">
               <HomeIcon />
+            </Link>
+          </li>
+          <li>
+            <Link to="/direct">
+              <InboxIcon />
             </Link>
           </li>
           <li>

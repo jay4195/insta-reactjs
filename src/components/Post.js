@@ -289,7 +289,7 @@ const Post = ({ post }) => {
           decLikes={decLikes}
         />
         <CommentIcon onClick={() => history.push(`/p/${post._id}`)} />
-        <InboxIcon />
+        <InboxIcon onClick={() => history.push(`/direct/${post.user?.username}`)}/>
         <SavePost isSaved={post.isSaved} postId={post._id} />
       </div>
 

@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import useInput from "../hooks/useInput";
 import { FeedContext } from "../context/FeedContext";
 import { client, uploadImage } from "../utils";
-import { NewPostIcon } from "./Icons";
+import { NewPostIcon, PlusIcon } from "./Icons";
 
 const NewPostWrapper = styled.div`
   .newpost-header {
@@ -198,7 +198,7 @@ const NewPost = () => {
   return (
     <NewPostWrapper>
       <label htmlFor="upload-post">
-        <NewPostIcon />
+        <PlusIcon />
       </label>
       <input
         id="upload-post"

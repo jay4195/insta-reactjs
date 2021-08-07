@@ -1,5 +1,44 @@
 import React from "react";
 
+export const PlusIcon = (props) => (
+<svg {...props} 
+aria-label="Posts"
+stroke="currentColor" 
+fill="currentColor" 
+stroke-width="0" 
+viewBox="0 0 16 16" 
+height="21" 
+width="21" 
+xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"></path></svg>
+);
+
+export const DownChevronIcon = () => (
+  <svg 
+    aria-label="Down Chevron Icon" 
+    class="_8-yf5 " fill="#262626" 
+    height="20" 
+    role="img" 
+    viewBox="0 0 48 30" 
+    width="20"
+  >
+    <path d="M40 33.5c-.4 0-.8-.1-1.1-.4L24 18.1l-14.9 15c-.6.6-1.5.6-2.1 0s-.6-1.5 0-2.1l16-16c.6-.6 1.5-.6 2.1 0l16 16c.6.6.6 1.5 0 2.1-.3.3-.7.4-1.1.4z"></path>
+  </svg>
+);
+
+export const EmojiIcon = () => (
+  <svg 
+    aria-label="Emoji" 
+    class="_8-yf5 " 
+    fill="#262626" 
+    height="22" 
+    role="img" 
+    viewBox="0 0 48 48" 
+    width="22"
+  >
+    <path d="M24 48C10.8 48 0 37.2 0 24S10.8 0 24 0s24 10.8 24 24-10.8 24-24 24zm0-45C12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21S35.6 3 24 3z"></path><path d="M34.9 24c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5 1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5zm-21.8 0c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5-2.5-1.1-2.5-2.5zM24 37.3c-5.2 0-8-3.5-8.2-3.7-.5-.6-.4-1.6.2-2.1.6-.5 1.6-.4 2.1.2.1.1 2.1 2.5 5.8 2.5 3.7 0 5.8-2.5 5.8-2.5.5-.6 1.5-.7 2.1-.2.6.5.7 1.5.2 2.1 0 .2-2.8 3.7-8 3.7z"></path>
+  </svg>
+);
+
 export const HomeIcon = () => (
   <svg
     aria-label="Home"

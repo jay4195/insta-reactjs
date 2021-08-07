@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Explore from "./pages/Explore";
 import DetailedPost from "./pages/DetailedPost";
 import EditProfile from "./pages/EditProfile";
+import Direct from "./pages/Direct";
 
 const Routing = () => {
   return (
@@ -19,6 +20,8 @@ const Routing = () => {
           <Route path="/explore" component={Explore} />
           <Route path="/p/:postId" component={DetailedPost} />
           <Route path="/accounts/edit" component={EditProfile} />
+          <Route path="/direct/:username" component={Direct}/>
+          <Route path="/direct" component={Direct}/>
           <Route path="/:username" component={Profile} />
           <Route path="/" component={Home} />
         </Switch>
