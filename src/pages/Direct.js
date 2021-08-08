@@ -197,14 +197,13 @@ const Wrapper = styled.div`
 
 const Direct = () => {
   // username : undefinded / username;
+    const row = 1;
     const { username } = useParams();
     const [me, setMe] = useState(null);
     const [chatter, setChatter] = useState(null);
-    // InboxIcon(username === undefined);
     const [loading, setLoading] = useState(true);
     const message = useInput("");
     var hasValue = message.value !== "";
-    const [row, setRow] = useState(1);
     const maxTextAreaHeight = 116;
     const [messageList, setMessageList] = useState([]);
     const [contactList, setContactList] = useState([]);
@@ -212,13 +211,9 @@ const Direct = () => {
 
     const scrollToBottom = () => {
       if (tempArea !== null) {
-        // InboxIcon(tempArea.scrollTop + " " +tempArea.scrollHeight);
         tempArea.scrollTop = tempArea.scrollHeight;
-        // InboxIcon(tempArea.scrollTop + " " +tempArea.scrollHeight);
       }
     }
-
-    // scrollToBottom();
     
     const messageChange = (message) => {
       var tempArea = document.getElementById("textarea");
@@ -253,6 +248,15 @@ const Direct = () => {
         tempArea.style.height = 'auto';
       }, 0);
     }
+
+    setTimeout(() => {
+      client(`/direct/${username}`).then((res) => {
+        setMessageList(res.data);
+        scrollToBottom();
+        var tempArea = document.getElementById("textarea");
+        tempArea.style.height = 'auto';
+      });
+    }, 1500);
   
     useEffect(() => {
       client("/direct/contact").then((res) => {
@@ -263,7 +267,6 @@ const Direct = () => {
         if (username === undefined) {
           setChatter(res.data);
           client("/direct").then((res) => {
-            // InboxIcon(res.data);
             setMessageList(res.data);
             setLoading(false);
           });
@@ -276,6 +279,7 @@ const Direct = () => {
             }).catch((err) => toast.error(err.message));
           });
         }
+        // refreshMessage();
       });
     }, []);
 
