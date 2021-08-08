@@ -254,7 +254,9 @@ const Direct = () => {
         setMessageList(res.data);
         scrollToBottom();
         var tempArea = document.getElementById("textarea");
-        tempArea.style.height = 'auto';
+        if (tempArea !== null) {
+          tempArea.style.height = 'auto';
+        }
       });
     }, 1500);
   
