@@ -252,7 +252,10 @@ const Direct = () => {
     setTimeout(() => {
       client(`/direct/${username}`).then((res) => {
         setMessageList(res.data);
-        scrollToBottom();
+        if (res.data.length !== messageList.length) {
+          scrollToBottom();
+        }
+
         var tempArea = document.getElementById("textarea");
         if (tempArea !== null) {
           tempArea.style.height = 'auto';
