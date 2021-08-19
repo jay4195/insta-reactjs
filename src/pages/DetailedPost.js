@@ -211,7 +211,6 @@ const DetailedPost = () => {
     }
   };
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
     client(`/posts/${postId}`)
@@ -332,8 +331,7 @@ const DetailedPost = () => {
             <div className="post-caption">
               <div>{post.caption}</div>
               {tagsState.map((tag) => (
-                <span><a className="hashtag" href={"/explore/tags/"+tag.substring(1)}>{tag}</a></span>
-              
+                <span><a className="hashtag" href={`/search/${encodeURIComponent(tag)}`}>{tag}</a></span>
               ))}
             </div>
           </div>

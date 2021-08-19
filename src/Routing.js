@@ -10,6 +10,7 @@ import Explore from "./pages/Explore";
 import DetailedPost from "./pages/DetailedPost";
 import EditProfile from "./pages/EditProfile";
 import Direct from "./pages/Direct";
+import SearchPage from "./pages/SearchPage";
 
 const Routing = () => {
   return (
@@ -17,6 +18,7 @@ const Routing = () => {
       <Nav />
       <Container>
         <Switch>
+          <Route path="/search/:query" component={SearchPage} />
           <Route path="/explore" component={Explore} />
           <Route path="/p/:postId" component={DetailedPost} />
           <Route path="/accounts/edit" component={EditProfile} />

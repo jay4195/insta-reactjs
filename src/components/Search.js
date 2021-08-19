@@ -2,6 +2,7 @@ import React from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
+import { useHistory } from "react-router-dom";
 
 const InputWrapper = styled.input`
   padding: 0.4rem 0.6rem;
@@ -14,11 +15,14 @@ const InputWrapper = styled.input`
 
 const Search = () => {
   const searchterm = useInput("");
-
+  const history = useHistory();
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
+      console.log(searchterm.value);
+      console.log(encodeURI(searchterm.value));
+      history.push(`/search/${encodeURIComponent(searchterm.value)}`);
       searchterm.setValue("");
-      return toast.success("Sorry, the search feature isn't finished yet");
+      window.location.reload();
     }
   };
 
