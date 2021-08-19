@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   .suggestions-usercard {
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .suggestions img {
@@ -40,6 +40,12 @@ const Wrapper = styled.div`
   .follow {
     position: relative;
     top: -0.3rem;
+  }
+
+  .suggest-tag {
+    color: #70757a;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
   }
 
   span {
@@ -107,7 +113,7 @@ const Suggestions = () => {
       <UserCard user={user} />
 
       <div className="suggestions">
-        <h3>Suggestions For You</h3>
+        <h4 className="suggest-tag">Suggestions For You</h4>
         {users.slice(0, 4).map((user) => (
           <div key={user.username} className="suggestions-usercard">
             <UserCard user={user} />

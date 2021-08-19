@@ -18,6 +18,7 @@ const ModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  color: #262626
 
   span:last-child {
     border: none;
@@ -185,6 +186,11 @@ export const PostWrapper = styled.div`
     cursor: auto;
   }
 
+  .hashtag{
+    color: #00376b;
+    text-decoration: none;
+  }
+
   @media screen and (max-width: 690px) {
     width: 99%;
   }
@@ -205,6 +211,7 @@ const Post = ({ post }) => {
   const [hasLeft, setHasLeft] = useState(false);
   const [hasRight, setHasRight] = useState(postLength > 1 ? true : false);
   const [imgId, setImgId] = useState(0);
+  const [hashtags, setHashtags] = useState(post.tags);
 
   const incLikes = () => setLikes(likesState + 1);
   const decLikes = () => setLikes(likesState - 1);
@@ -308,6 +315,10 @@ const Post = ({ post }) => {
             {post.user?.username}
           </span>
           {post.caption}
+          <br />
+          {hashtags.map((tag) => (
+                <span><a className="hashtag" href={`/search/${encodeURIComponent(tag)}`}> {tag} </a></span>
+              ))}
         </p>
 
         {post.commentsCount > 2 && (
