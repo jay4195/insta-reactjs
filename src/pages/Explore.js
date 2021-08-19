@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import PostPreview from "../components/PostPreview";
 import Loader from "../components/PostPreview";
 import { client } from "../utils";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  .result-stat {
+    color: #70757a;
+  }
+`;
 
 const Explore = () => {
   const [loading, setLoading] = useState(true);
@@ -19,12 +26,12 @@ const Explore = () => {
   }
 
   return (
-    <>
+    <Wrapper>
       <div style={{ marginTop: "2.3rem" }}>
-        <h2>Explore</h2>
+        <h2 className="result-stat">Explore</h2>
         <PostPreview posts={posts} />
       </div>
-    </>
+    </Wrapper>
   );
 };
 

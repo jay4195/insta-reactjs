@@ -18,11 +18,12 @@ const Search = () => {
   const history = useHistory();
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      console.log(searchterm.value);
-      console.log(encodeURI(searchterm.value));
+      var urlStr = history.location.pathname;
       history.push(`/search/${encodeURIComponent(searchterm.value)}`);
       searchterm.setValue("");
-      window.location.reload();
+      if (urlStr.startsWith("/search")) {
+        window.location.reload();
+      }
     }
   };
 
