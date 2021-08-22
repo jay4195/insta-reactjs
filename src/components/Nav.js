@@ -20,8 +20,7 @@ const NavWrapper = styled.div`
   .nav-logo {
     position: relative;
     top: 6px;
-    height: 50%;
-    width: 50%;
+    width: 90%;
   }
 
   nav {

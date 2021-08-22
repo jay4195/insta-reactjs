@@ -205,6 +205,7 @@ const ModalContent = ({ loggedInUser, users, closeModal, title }) => {
   );
 };
 
+
 const SettingModalContentWrapper = styled.div`
   width: 300px;
   display: flex;
@@ -222,6 +223,7 @@ const SettingModalContentWrapper = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
     cursor: pointer;
   }
+
 `;
 
 
@@ -288,7 +290,7 @@ const ProfileHeader = ({ profile }) => {
                 >
                   Edit Profile
                 </Button>
-                <OptionsIcon onClick={setSettingModal} />
+                <OptionsIcon onClick={() => setSettingModal(true)} />
               </div>
             ) : (
               <Follow
@@ -299,6 +301,14 @@ const ProfileHeader = ({ profile }) => {
               />
             )}
           </div>
+
+          {showSettingModal  && (
+              <Modal>
+                <SettingModalContent
+                  closeModal={closeModal}
+                />
+              </Modal>
+            )}
 
           <div className="profile-stats">
             <span>
@@ -329,14 +339,6 @@ const ProfileHeader = ({ profile }) => {
                   loggedInUser={user}
                   users={profile?.following}
                   title="Following"
-                  closeModal={closeModal}
-                />
-              </Modal>
-            )}
-
-            {showSettingModal  && (
-              <Modal>
-                <SettingModalContent
                   closeModal={closeModal}
                 />
               </Modal>

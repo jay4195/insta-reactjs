@@ -69,7 +69,7 @@ export const Wrapper = styled.div`
 
     .input-group {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
     }
 
     label {
