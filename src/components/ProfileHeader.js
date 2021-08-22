@@ -205,15 +205,37 @@ const ModalContent = ({ loggedInUser, users, closeModal, title }) => {
   );
 };
 
+const SettingModalContentWrapper = styled.div`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #262626
+
+  span:last-child {
+    border: none;
+  }
+
+  span {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
+    cursor: pointer;
+  }
+`;
+
+
 const ProfileHeader = ({ profile }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
 
   const [showFollowersModal, setFollowersModal] = useState(false);
   const [showFollowingModal, setFollowingModal] = useState(false);
+  const [showSettingModal, setSettingModal] = useState(false);
   const closeModal = () => {
     setFollowersModal(false);
     setFollowingModal(false);
+    setSettingModal(false);
   };
 
   const [followersState, setFollowers] = useState(0);
@@ -225,6 +247,28 @@ const ProfileHeader = ({ profile }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     toast.success("You are logged out");
+  };
+
+  const SettingModalContent = ({ closeModal }) => {
+    const history = useHistory();
+  
+    const handleGoToPost = () => {
+      closeModal();
+    };
+  
+    return (
+      <SettingModalContentWrapper>
+        <span onClick={closeModal}>
+          Change Password
+        </span>
+        <span onClick={handleLogout}>
+          Log Out
+        </span>
+        <span className="danger" onClick={closeModal}>
+          Cancel
+        </span>
+      </SettingModalContentWrapper>
+    );
   };
 
   useEffect(() => setFollowers(profile?.followersCount), [profile]);
@@ -244,7 +288,7 @@ const ProfileHeader = ({ profile }) => {
                 >
                   Edit Profile
                 </Button>
-                <OptionsIcon onClick={handleLogout} />
+                <OptionsIcon onClick={setSettingModal} />
               </div>
             ) : (
               <Follow
@@ -285,6 +329,14 @@ const ProfileHeader = ({ profile }) => {
                   loggedInUser={user}
                   users={profile?.following}
                   title="Following"
+                  closeModal={closeModal}
+                />
+              </Modal>
+            )}
+
+            {showSettingModal  && (
+              <Modal>
+                <SettingModalContent
                   closeModal={closeModal}
                 />
               </Modal>

@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserContext";
 import navlogo from "../assets/navlogo.png";
 import { HomeIcon, ExploreIcon, HeartIcon, InboxIcon } from "./Icons";
 
+
 const NavWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -19,6 +20,8 @@ const NavWrapper = styled.div`
   .nav-logo {
     position: relative;
     top: 6px;
+    height: 50%;
+    width: 50%;
   }
 
   nav {

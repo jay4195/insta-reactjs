@@ -28,8 +28,8 @@ export const Wrapper = styled.div`
 
   input,
   textarea {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     padding: 0.4rem 1rem;
-    font-family: "Fira Sans", sans-serif;
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid ${(props) => props.theme.borderColor};
@@ -76,6 +76,13 @@ export const Wrapper = styled.div`
     button {
       margin-left: 0;
     }
+  }
+
+  .item-name {
+    font-weight: 500;
+    text-align: right;
+    padding-right: 20px;
+    color: #505050;
   }
 
   @media screen and (max-width: 430px) {
@@ -187,34 +194,37 @@ const ProfileForm = () => {
         </div>
 
         <div className="input-group">
-          <label className="bold">Name</label>
+          <label className="item-name">Name</label>
           <input
             type="text"
             value={fullname.value}
             onChange={fullname.onChange}
+            placeholder="Name"
           />
         </div>
 
         <div className="input-group">
-          <label className="bold">Username</label>
+          <label className="item-name">Username</label>
           <input
             type="text"
             value={username.value}
             onChange={username.onChange}
+            placeholder="Username"
           />
         </div>
 
         <div className="input-group">
-          <label className="bold">Website</label>
+          <label className="item-name">Website</label>
           <input
             type="text"
             value={website.value}
             onChange={website.onChange}
+            placeholder="Website"
           />
         </div>
 
         <div className="input-group textarea-group">
-          <label className="bold">Bio</label>
+          <label className="item-name">Bio</label>
           <textarea
             cols="10"
             value={bio.value}

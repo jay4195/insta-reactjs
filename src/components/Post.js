@@ -81,7 +81,7 @@ export const PostWrapper = styled.div`
   }
 
   .post-img {
-    width: 100%;
+    width:100%;
     height: 100%;
     object-fit: cover;
   }
@@ -89,7 +89,7 @@ export const PostWrapper = styled.div`
   .image-wrapper {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit:scale-down;
   }
 
   .left-button {
