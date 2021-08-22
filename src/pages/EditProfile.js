@@ -73,33 +73,41 @@ const Wrapper = styled.div`
   }
 `;
 
+
 const EditProfile = () => {
+  const [tagIndex, setTagIndex] = useState(0);
+
   const history = useHistory();
-  console.log(history.location.pathname);
-  var currentPathName = history.location.pathName;
-  var pathName = new Array("/accounts/edit", 
-                           "/accounts/password/change");
-  console.log(history);     
-  console.log(pathName);                 
-  for (var path of pathName) {
-    console.log(path);
-    console.log("/accounts/edit" === currentPathName);
+  const handleSwitchTag = (tagId) => {
+    setTagIndex(tagId);
   }
-  const setItemStyle = (tabindex) => {
+  var curPath = history.location.pathname;
+  if (!curPath.endsWith("/")) {
+    curPath = curPath + "/";
+  }
+  var pathList = new Array("/accounts/edit/", "/accounts/password/change/");
+  for (var i = 0; i < pathList.length; i++) {
+    if (curPath === pathList[i] && i !== tagIndex) {
+      setTagIndex(i);
+    }
   }
 
+  const isSelect = (tagId) => {
+    return tagIndex === tagId;
+  }
+  
   return (
     <Wrapper>
       <div className="labels-wrapper">
         <li>
-          <a className="labels-select" href="/accounts/edit/" >Edit Profile</a>
+          <a className={isSelect(0)? "labels-select" : "labels" } href="/accounts/edit/" >Edit Profile</a>
         </li>
         <li>
-          <a className="labels" href="/accounts/password/change/" >Change Password</a>
+          <a className={isSelect(1)? "labels-select" : "labels" } href="/accounts/password/change/" >Change Password</a>
         </li>
       </div>
       <div className="profile-form-container">
-        <ProfileForm />
+        {isSelect(0) && <ProfileForm />}
       </div>
     </Wrapper>
   );
