@@ -5,8 +5,8 @@ import Modal from "./Modal";
 import useInput from "../hooks/useInput";
 import { FeedContext } from "../context/FeedContext";
 import { client, uploadImage } from "../utils";
-import { NewPostIcon, PlusIcon } from "./Icons";
-
+import { PlusIcon } from "./Icons";
+// import { NewPostIcon, PlusIcon } from "./Icons";
 const NewPostWrapper = styled.div`
   .newpost-header {
     display: flex;
@@ -54,7 +54,7 @@ const NewPostWrapper = styled.div`
   textarea {
     height: 100%;
     width: 100%;
-    font-family: "Fira Sans", sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     border: none;

@@ -21,8 +21,7 @@ const Routing = () => {
           <Route path="/search/:query" component={SearchPage} />
           <Route path="/explore" component={Explore} />
           <Route path="/p/:postId" component={DetailedPost} />
-          <Route path="/accounts/edit" component={EditProfile} />
-          <Route path="/accounts/password/change" component={EditProfile} />
+          <Route path="/accounts" component={EditProfile} />
           <Route path="/direct/:username" component={Direct}/>
           <Route path="/direct" component={Direct}/>
           <Route path="/:username" component={Profile} />

@@ -211,7 +211,7 @@ const Post = ({ post }) => {
   const [hasLeft, setHasLeft] = useState(false);
   const [hasRight, setHasRight] = useState(postLength > 1 ? true : false);
   const [imgId, setImgId] = useState(0);
-  const [hashtags, setHashtags] = useState(post.tags);
+  const [hashtags] = useState(post.tags);
 
   const incLikes = () => setLikes(likesState + 1);
   const decLikes = () => setLikes(likesState - 1);

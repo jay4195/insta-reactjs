@@ -251,14 +251,14 @@ const ProfileHeader = ({ profile }) => {
 
   const SettingModalContent = ({ closeModal }) => {
     const history = useHistory();
-  
-    const handleGoToPost = () => {
-      closeModal();
-    };
+
+    const handleChangePassword = () => {
+      history.push("/accounts/password/change");
+    }
   
     return (
       <SettingModalContentWrapper>
-        <span onClick={closeModal}>
+        <span onClick={handleChangePassword}>
           Change Password
         </span>
         <span onClick={handleLogout}>

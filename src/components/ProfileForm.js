@@ -50,6 +50,7 @@ export const Wrapper = styled.div`
   }
 
   span {
+    font-weight: 500;
     color: ${(props) => props.theme.blue};
     cursor: pointer;
   }
@@ -82,7 +83,7 @@ export const Wrapper = styled.div`
     font-weight: 500;
     text-align: right;
     padding-right: 20px;
-    color: #505050;
+    color: rgba(var(--i1d,38,38,38),1);
   }
 
   @media screen and (max-width: 430px) {

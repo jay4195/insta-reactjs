@@ -22,11 +22,11 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const logout = () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUser(null);
-    };
+    // const logout = () => {
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("user");
+    //   setUser(null);
+    // };
 
     client("/users/feed")
       .then((res) => {

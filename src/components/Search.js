@@ -1,5 +1,4 @@
 import React from "react";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
 import { useHistory } from "react-router-dom";
@@ -8,7 +7,7 @@ const InputWrapper = styled.input`
   padding: 0.4rem 0.6rem;
   background: ${(props) => props.theme.bg};
   border: 1px solid ${(props) => props.theme.borderColor};
-  font-family: "Fira Sans", sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-size: 1rem;
   border-radius: ${(props) => props.theme.borderRadius};
 `;

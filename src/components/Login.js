@@ -26,7 +26,7 @@ export const FormWrapper = styled.div`
     padding: 0.5rem 1.2rem;
     background: ${(props) => props.theme.white};
     border: 1px solid ${(props) => props.theme.borderColor};
-    font-family: "Fira Sans", sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 1rem;
     border-radius: 4px;
     width: 85%;

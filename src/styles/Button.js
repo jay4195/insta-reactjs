@@ -8,8 +8,9 @@ const Button = styled.button`
   border-radius: 4px;
   margin-top: 1rem;
   margin-left: 1rem;
-  font-family: "Fira Sans", sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-size: 1rem;
+  font-weight: 500;
 
   ${(props) =>
     props.secondary &&

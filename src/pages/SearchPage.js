@@ -18,12 +18,13 @@ const SearchPage = () => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
+
     client(`/search/${query}`).then((res) => {
       setPosts(res.data);
       setLoading(false);
       setTime(res.time);
     });
-  }, []);
+  }, [query]);
 
   if (loading) {
     return <Loader />;

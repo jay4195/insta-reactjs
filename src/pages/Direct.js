@@ -286,7 +286,7 @@ const Direct = () => {
         }
         // refreshMessage();
       });
-    }, []);
+    }, [username]);
 
     if (loading) {
       return <Loader />;

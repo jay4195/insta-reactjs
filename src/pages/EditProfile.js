@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ProfileForm from "../components/ProfileForm";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import ChangePassword from "../components/ChangePassword";
 
 
 const Wrapper = styled.div`
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   display: flex;
   background: ${(props) => props.theme.white};
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 
   .tabs {
     border-right: 1px solid ${(props) => props.theme.borderColor};
@@ -78,14 +79,11 @@ const EditProfile = () => {
   const [tagIndex, setTagIndex] = useState(0);
 
   const history = useHistory();
-  const handleSwitchTag = (tagId) => {
-    setTagIndex(tagId);
-  }
   var curPath = history.location.pathname;
   if (!curPath.endsWith("/")) {
     curPath = curPath + "/";
   }
-  var pathList = new Array("/accounts/edit/", "/accounts/password/change/");
+  var pathList = ["/accounts/edit/", "/accounts/password/change/"];
   for (var i = 0; i < pathList.length; i++) {
     if (curPath === pathList[i] && i !== tagIndex) {
       setTagIndex(i);
@@ -108,6 +106,7 @@ const EditProfile = () => {
       </div>
       <div className="profile-form-container">
         {isSelect(0) && <ProfileForm />}
+        {isSelect(1) && <ChangePassword />}
       </div>
     </Wrapper>
   );
