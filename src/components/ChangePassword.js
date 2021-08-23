@@ -142,6 +142,8 @@ const ChangePassword = () => {
         history.push(`/${body.username || user.username}`);
       })
       .catch((err) => toast.error(err.message));
+
+      toast.success("Password Changed!")
   };
 
   return (
